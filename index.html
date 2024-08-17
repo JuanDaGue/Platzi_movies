@@ -8,6 +8,7 @@
 </head>
 <body>
     <header class="header">
+        <span class="header-arrow inactive">&lt;</span>
         <h1>Top Movies</h1>
         <nav>
             <ul>
@@ -16,8 +17,49 @@
                 <li><a href="#comments">Comments</a></li>
             </ul>
         </nav>
+        <form id="searchForm" class="header_search">
+            <input type="text" placeholder="Advenger">
+            <button> Sarch</button>
+        </form>
+
     </header>
     <main>
+
+
+        <section id="trendingPreview" class="trendingPreview-container">
+            <div class="trendingPreview-header">
+              <h2 class="trendingPreview-title">Trendding</h2>
+              
+            </div>
+        
+            <article class="trendingPreview-movieList">
+              <div class="movie-container">
+                <img
+                  src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
+                  class="movie-img"
+                  alt="Nombre de la película"
+                />
+              </div>
+        
+              <div class="movie-container">
+                <img
+                  src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
+                  class="movie-img"
+                  alt="Nombre de la película"
+                />
+              </div>
+        
+              <div class="movie-container">
+                <img
+                  src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
+                  class="movie-img"
+                  alt="Nombre de la película"
+                />
+              </div>
+            </article>
+            <button class="trendingPreview-btn">See more ...</button>
+          </section>
+
         <section id="movies" class="section">
             <h2>Movies</h2>
             <div class="grid">
