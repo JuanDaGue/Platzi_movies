@@ -1,0 +1,19 @@
+{
+  "name": "platzi_movies",
+  "version": "1.0.0",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JuanDaGue/Repositorio_git.git#master"
+  },
+  "author": "Juan David Guerrero",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JuanDaGue/Repositorio_git/issues"
+  },
+  "homepage": "https://github.com/JuanDaGue/Repositorio_git/tree/master#readme",
+  "description": ""
+}
