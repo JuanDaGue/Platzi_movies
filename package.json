@@ -15,10 +15,10 @@
     "url": "https://github.com/JuanDaGue/Repositorio_git/issues"
   },
   "homepage": "https://github.com/JuanDaGue/Repositorio_git/tree/master#readme",
-  "description": "",
+  "description": "This project is a web application that allows users to search for movies and view details about them. It uses HTML, CSS, and JavaScript along with the Movie Database API to fetch and display movie data.",
   "dependencies": {
-  "axios": "^1.7.4"
-  
-  }
-  
+    "axios": "^1.7.4",
+    "cheerio": "^1.0.0"
+  },
+  "keywords": []
 }
