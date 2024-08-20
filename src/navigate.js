@@ -1,7 +1,7 @@
 window.addEventListener('DOMContentLoaded', navigator, false)
 window.addEventListener('hashchange', navigator, false)
 function navigator(){
-    console.log({location})
+    //console.log({location})
     if(location.hash.startsWith('#trend')){
         trend ();
     }
@@ -19,6 +19,9 @@ function navigator(){
     }
     else if(location.hash.startsWith('#comments')){
         Home ()
+    }
+    else if(location.hash.startsWith('#movie/')){
+        Details ()
     }
     else{
         Home ()
@@ -151,7 +154,7 @@ function  search () {
     headerNav.classList.add('inactive');
     
     h2func('search')
-    let name =location.hash.split('/').pop()
+    let name =location.hash.split('/').pop();
     genre.querySelector('h2').textContent= name.replaceAll('%20',' ')
     searchlist(name);
 }
@@ -174,6 +177,35 @@ function Home (){
     headerNav.classList.remove('inactive');
     h2func('')
 
+}
+function Details (){
+
+
+    console.log('Details!!');
+    //Header
+    header.style.backgroud ='';
+       
+    // Titles
+    categoriesTitle.classList.add('inactive');
+    genre.classList.remove('inactive');
+    headerTitle.classList.add('inactive');
+    //Sections
+    trendingPreviewSeriesContainer.classList.add('inactive');
+    trendingPreviewMoviesContainer.classList.add('inactive');
+    seriesSection.classList.add('inactive');
+    moviesSection.classList.add('inactive');
+    commentsSection.classList.add('inactive'); 
+    categoriesSection.classList.add('inactive');
+    //forms,  arrows or Buttons
+    headerArrow.classList.remove('inactive');
+    searchForm.classList.remove('inactive');
+    headerNav.classList.add('inactive');
+    
+    h2func('search')
+    let name =location.hash.split('/').pop()
+    genre.querySelector('h2').textContent= name.replaceAll('%20',' ')
+    id=location.hash.split('/').pop();
+    description(id)
 }
 document.addEventListener('DOMContentLoaded', (event) => {
     const headerArrow = document.querySelector('.header-arrow.inactive');
@@ -198,12 +230,16 @@ function h2func(h2name){
         //header.appendChild(content)
         header.insertBefore(content, header.firstChild)
     }
+
 }
+
+
 searchButton.addEventListener('click', ()=>{
     let sName=searchInput.value
     location.hash=`#search/${sName}`
     searchInput.value='';
 })
+
 
 Genre();
 trendingSeries ();
