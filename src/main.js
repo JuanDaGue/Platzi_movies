@@ -32,8 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
 async function trending () {
     const {data} = await api(`/trending/movie/day?language=en-US`)
     let movies= data.results
-
-    //msg(data)
     movies.forEach(element => {
         
         const container= document.createElement('div');
@@ -69,20 +67,17 @@ async function trendingSeries () {
                   src=${img_path}${element.poster_path}
                   class="movie-img"
                   alt=${element.title}
-                />`
-        //msg(container)  
+                />` 
     });
 }
 
 async function ratedMovies() {
     const {data} = await api(`/movie/popular?language=en-US&page=1`)
-    //msg(data)
     for (let i = 0; i < 2; i++) {
       document.querySelectorAll('#movies img')[i].src = img_path + data.results[i].poster_path;
       document.querySelectorAll('#movies h3')[i].textContent=data.results[i].title
       card=document.querySelectorAll('#movies .card')[i];
       card.addEventListener('click', () => {
-        msg('Card clicked!');
         location.hash=`#movie/${data.results[i].id}`
   });
   }
@@ -91,13 +86,11 @@ async function ratedMovies() {
 async function ratedseries() {
 
   const {data} = await api(`/tv/popular?language=en-US&page=1`)
-  //msg(data)
-  for (let i = 0; i < 2; i++) {
+   for (let i = 0; i < 2; i++) {
     document.querySelectorAll('#series img')[i].src = img_path + data.results[i].poster_path;
     document.querySelectorAll('#series h3')[i].textContent=data.results[i].name;
     card=document.querySelectorAll('#series .card')[i];
     card.addEventListener('click', () => {
-      msg('Card clicked!');
       location.hash=`#movie/${data.results[i].id}`
 });
   }
@@ -149,7 +142,6 @@ function Newsection(data, content){
         cont.appendChild(card)
 
         card.addEventListener('click', () => {
-          msg('Card clicked!');
           location.hash=`#movie/${element.id}`
       });
     }
@@ -159,9 +151,6 @@ function Newsection(data, content){
 
 async function description(id){
   const {data} = await api(`/movie/${id}?language=en-US`)
-  msg(data)
-
-
   let cont =document.createElement('div')
   cont.classList.add('grid')
   genre.appendChild(cont)

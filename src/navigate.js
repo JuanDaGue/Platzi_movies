@@ -211,7 +211,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const headerArrow = document.querySelector('.header-arrow.inactive');
     headerArrow.addEventListener('click', () => {
         history.back();
-        //location.hash='Home';
     });
 })
 
@@ -221,13 +220,9 @@ function h2func(h2name){
     document.querySelector('.genre-section .grid')?.remove();
     if(h2name>0){
         let content = document.createElement('h2')
-        //<h1 class="header-title">Top Movies</h1>
         content.classList.add('header-h2')
-        //content.setAttribute('id', element.id)
         var newText = document.createTextNode(h2name);
         content.appendChild(newText);
-
-        //header.appendChild(content)
         header.insertBefore(content, header.firstChild)
     }
 
@@ -246,3 +241,4 @@ trendingSeries ();
 ratedMovies();
 trending();
 ratedMovies();
+ratedseries()
