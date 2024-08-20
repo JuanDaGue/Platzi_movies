@@ -23,6 +23,9 @@ function navigator(){
     else if(location.hash.startsWith('#movie/')){
         Details ()
     }
+    else if(location.hash.startsWith('#movieS')){
+        Details ()
+    }
     else{
         Home ()
     }
@@ -48,6 +51,8 @@ function trend (){
             headerArrow.classList.remove('inactive');
             searchForm.classList.add('inactive');
             headerNav.classList.add('inactive');
+            headerHome.classList.remove('inactive');
+
             h2func('Trendign')
 
 }
@@ -72,6 +77,8 @@ function movies_ (){
         searchForm.classList.add('inactive');
         headerNav.classList.add('inactive');
         genre.classList.add('inactive');
+        headerHome.classList.remove('inactive');
+
 
         h2func('Movies')
     
@@ -98,6 +105,7 @@ function  categories (){
     searchForm.classList.add('inactive');
     headerNav.classList.add('inactive');
     genre.classList.add('inactive');
+    headerHome.classList.remove('inactive');
     
     h2func('Categories')
     
@@ -126,6 +134,7 @@ function  genresId (){
     headerArrow.classList.remove('inactive');
     searchForm.classList.add('inactive');
     headerNav.classList.add('inactive');
+    headerHome.classList.remove('inactive');
     
     h2func('Categories')
     let id =location.hash.split('=').pop().split('/')[0]
@@ -152,6 +161,7 @@ function  search () {
     headerArrow.classList.remove('inactive');
     searchForm.classList.remove('inactive');
     headerNav.classList.add('inactive');
+    headerHome.classList.remove('inactive');
     
     h2func('search')
     let name =location.hash.split('/').pop();
@@ -161,7 +171,7 @@ function  search () {
 
 function Home (){
     console.log('Home!!');
-
+    headerHome.classList.add('inactive');
     header.style.backgroud ='';
     genre.classList.add('inactive');
     headerArrow.classList.add('inactive');
@@ -200,12 +210,21 @@ function Details (){
     headerArrow.classList.remove('inactive');
     searchForm.classList.remove('inactive');
     headerNav.classList.add('inactive');
+    headerHome.classList.remove('inactive');
     
     h2func('search')
     let name =location.hash.split('/').pop()
     genre.querySelector('h2').textContent= name.replaceAll('%20',' ')
-    id=location.hash.split('/').pop();
-    description(id)
+    let id=location.hash.split('/').pop();
+    let string =location.hash.split('#').pop().split('/')[0];
+    console.log(string)
+    if(string.search(/Serie/img)>-1){
+        string = 'tv'
+    }else{
+        string='movie'
+    }
+    console.log(string)
+    description(id,string)
 }
 document.addEventListener('DOMContentLoaded', (event) => {
     const headerArrow = document.querySelector('.header-arrow.inactive');
@@ -230,15 +249,37 @@ function h2func(h2name){
 
 
 searchButton.addEventListener('click', ()=>{
+    event.preventDefault();
     let sName=searchInput.value
     location.hash=`#search/${sName}`
-    searchInput.value='';
+    
 })
 
+document.getElementById('searchForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+    let sName = document.querySelector('input[type="text"]').value;
+    console.log(sName)
+    location.hash=`#search/${sName}`
+});
+
+let clickCount = 1;
+buttonSearch =document.querySelectorAll('.trendingPreview-btn')
+for (let i=0; i<2;i++){
+    buttonSearch[i].addEventListener('click', (event) => {
+    
+    clickCount++; // Increment the click count
+    console.log(`Button clicked ${clickCount} times`); // Log the click count
+    if(i==0){
+    trending(clickCount);}
+    else{
+        trendingSeries(clickCount)
+    }
+});
+};
 
 Genre();
-trendingSeries ();
+trendingSeries (1);
 ratedMovies();
-trending();
-ratedMovies();
+trending(1);
+//ratedMovies();
 ratedseries()

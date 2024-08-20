@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-async function trending () {
-    const {data} = await api(`/trending/movie/day?language=en-US`)
+async function trending (cont) {
+    const {data} = await api(`/trending/movie/day?language=en-US&page=${cont}`)
     let movies= data.results
     movies.forEach(element => {
         
@@ -50,9 +50,9 @@ async function trending () {
     });
 }
 
-async function trendingSeries () {
+async function trendingSeries (cont) {
   
-   const {data} = await api(`/discover/tv?include_adult=false&language=en-US&page=1&sort_by=popularity.desc`)
+   const {data} = await api(`/discover/tv?include_adult=false&language=en-US&page=${cont}&sort_by=popularity.desc`)
     let movies= data.results
     movies.forEach(element => {
         
@@ -60,7 +60,7 @@ async function trendingSeries () {
         container.classList.add('movie-container')
         container.addEventListener('click', () => {
           msg('Card clicked!');
-          location.hash=`#movie/${element.id}`
+          location.hash=`#movieSerie/${element.id}`
     });
         document.querySelector('.trendingPreview-containerSerie .trendingPreview-movieList').appendChild(container)    
         container.innerHTML=`                <img
@@ -91,7 +91,7 @@ async function ratedseries() {
     document.querySelectorAll('#series h3')[i].textContent=data.results[i].name;
     card=document.querySelectorAll('#series .card')[i];
     card.addEventListener('click', () => {
-      location.hash=`#movie/${data.results[i].id}`
+      location.hash=`#movieSerie/${data.results[i].id}`
 });
   }
 }
@@ -108,62 +108,61 @@ async function Genre() {
               location.hash='categories='+element.id+'/'+element.name;
               genreTitle.textContent= element.name;
             })
-            document.querySelector('.categories-list').appendChild(content)
-            
+            document.querySelector('.categories-list').appendChild(content);   
       });
 }
 
 
 async function genrelist(id) {
-  const {data} = await api('discover/movie?include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres='+id)
-  Newsection(data, genre)
+  const {data} = await api('discover/movie?include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres='+id);
+  Newsection(data, genre);
 
 }
 
 
 async function searchlist(name) {
-  const {data} = await api(`search/movie?query=${name}&include_adult=false&language=en-US&page=1`)
-  Newsection(data, genre)
-
+  const {data} = await api(`search/movie?query=${name}&include_adult=false&language=en-US&page=1`);
+  Newsection(data, genre);
+  searchInput.value = '';
 }
 
 
 ////// function for build the section
 function Newsection(data, content){
-  let cont =document.createElement('div')
-  cont.classList.add('grid')
-  content.appendChild(cont)
+  let cont =document.createElement('div');
+  cont.classList.add('grid');
+  content.appendChild(cont);
   data.results.forEach(element => {
       if(element.poster_path){
         let card=document.createElement('div')
         card.classList.add('card')
         card.innerHTML=`  <img src="${img_path}${element.poster_path}" alt="Movie 1">
-                          <h3>${element.title}</h3>`
-        cont.appendChild(card)
+                          <h3>${element.title}</h3>`;
+        cont.appendChild(card);
 
         card.addEventListener('click', () => {
-          location.hash=`#movie/${element.id}`
+          //msg(']Hola');
+          location.hash=`#movie/${element.id}`;
       });
     }
   });
 }
 
 
-async function description(id){
-  const {data} = await api(`/movie/${id}?language=en-US`)
-  let cont =document.createElement('div')
-  cont.classList.add('grid')
-  genre.appendChild(cont)
-  let card=document.createElement('div')
-  card.classList.add('card')
-  //card.innerHTML=` <h3>${data.title}</h3>`
-                   // cont.appendChild(card);
-                    document.querySelector('.genre-title').textContent = data.title;
+async function description(id,string){
+
+  const {data} = await api(`/${string}/${id}?language=en-US`);
+  let cont =document.createElement('div');
+  cont.classList.add('grid');
+  genre.appendChild(cont);
+  let card=document.createElement('div');
+  card.classList.add('card');
+  document.querySelector('.genre-title').textContent = data.title;
                     
-                    let descrip = document.createElement('div');
-                    descrip.classList.add('movieDescription');
+  let descrip = document.createElement('div');
+  descrip.classList.add('movieDescription');
                     
-                    descrip.innerHTML = `
+  descrip.innerHTML = `
                       <p><strong>Tagline:</strong> ${data.tagline}</p>
                       <p><strong>Overview:</strong> ${data.overview}</p>
                       <p><strong>Genres:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
@@ -178,4 +177,6 @@ async function description(id){
 
   
 }
+
+
 

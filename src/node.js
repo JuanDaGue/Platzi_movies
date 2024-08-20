@@ -1,6 +1,8 @@
 // Header
 const header = document.querySelector('.header');
 const headerArrow = document.querySelector('.header-arrow');
+const headerHome = document.querySelector('.header-arrow.home-button');
+
 const headerTitle = document.querySelector('.header-title');
 const navLinks = document.querySelectorAll('nav ul li a');
 const searchForm = document.querySelector('#searchForm');
