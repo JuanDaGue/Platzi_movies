@@ -103,17 +103,7 @@ async function ratedseries() {
   }
 }
 async function Genre() {
-
-    const options = {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyNWE2YTcyMmRlYjE1Nzc2MTRkZWVjNmZhYzBmZWU2MSIsIm5iZiI6MTcyMzkyNDc1NC4zNzIxNTcsInN1YiI6IjY2OWVkMGY3M2QzMzQzMDVhOWJmMTk0MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.mVWYf0sEZZ7IsS1MiI4VX4LaNKDkSQTXqguwC0H403k'
-        }
-      };
-      
-      let resp = await fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
-      data=  await resp.json();
+      const {data} = await api('genre/movie/list?language=en')
         data.genres.forEach(element => {
             let  content= document.createElement('div');
             content.classList.add('category-item')
@@ -144,6 +134,8 @@ async function searchlist(name) {
 
 }
 
+
+////// function for build the section
 function Newsection(data, content){
   let cont =document.createElement('div')
   cont.classList.add('grid')

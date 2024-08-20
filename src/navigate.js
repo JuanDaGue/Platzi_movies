@@ -246,4 +246,3 @@ trendingSeries ();
 ratedMovies();
 trending();
 ratedMovies();
-ratedseries();
