@@ -8,6 +8,15 @@ const api=axios.create({
     "Authorization": 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyNWE2YTcyMmRlYjE1Nzc2MTRkZWVjNmZhYzBmZWU2MSIsIm5iZiI6MTcyMzkyNDc1NC4zNzIxNTcsInN1YiI6IjY2OWVkMGY3M2QzMzQzMDVhOWJmMTk0MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.mVWYf0sEZZ7IsS1MiI4VX4LaNKDkSQTXqguwC0H403k'
     }
 })
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(element => {
+    if(element.isIntersecting){
+      const url=element.target.getAttribute('data-img');
+      element.target.setAttribute('src',url)
+    }
+  });
+});
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const commentForm = document.getElementById('comment-form');
@@ -37,15 +46,18 @@ async function trending (cont) {
         const container= document.createElement('div');
         container.classList.add('movie-container')
         container.addEventListener('click', () => {
-          msg('Card clicked!');
+          //msg('Card clicked!');
           location.hash=`#movie/${element.id}`
     });
         container.innerHTML=`                <img
-                  src=${img_path}${element.poster_path}
+                  data-img=${img_path}${element.poster_path}
                   class="movie-img"
                   alt=${element.title}
                 />`
-        document.querySelector('.trendingPreview-movieList').appendChild(container)
+        //console.log(container.querySelector('img'))
+        const movieImg=container.querySelector('img')
+        observer.observe(movieImg)        
+        document.querySelector('.trendingPreview-movieList ').appendChild(container)
            
     });
 }
@@ -59,15 +71,17 @@ async function trendingSeries (cont) {
         const container= document.createElement('div');
         container.classList.add('movie-container')
         container.addEventListener('click', () => {
-          msg('Card clicked!');
+          //msg('Card clicked!');
           location.hash=`#movieSerie/${element.id}`
     });
         document.querySelector('.trendingPreview-containerSerie .trendingPreview-movieList').appendChild(container)    
         container.innerHTML=`                <img
-                  src=${img_path}${element.poster_path}
+                  data-img=${img_path}${element.poster_path}
                   class="movie-img"
                   alt=${element.title}
-                />` 
+                />` ;
+                const serieImg=container.querySelector('img')
+                observer.observe(serieImg)           
     });
 }
 
