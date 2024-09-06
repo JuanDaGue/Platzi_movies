@@ -312,7 +312,7 @@ function page(){
   let clicknumber2=1;
   function page2(){
   
-    
+        
         buttonmore =document.querySelector('.button2');
       
         buttonmore.addEventListener('click', (event) => {
@@ -333,3 +333,5 @@ ratedMovies();
 trending(1);
 //ratedMovies();
 ratedseries()
+
+

@@ -128,30 +128,45 @@ async function Genre() {
 
 
 async function genrelist(id, pages) {
-  
-  const {data} = await api('discover/movie?include_video=false&language=en-US&page='+pages+'&sort_by=popularity.desc&with_genres='+id);
-  Newsection(data, genre);
-  
-  let button=document.createElement('button');
-  button.classList.add('button')
-  button.innerText ='load more'
-  genre.appendChild(button)
-  page()
+  if(pages<1000){
+
+    const {data} = await api('discover/movie?include_video=false&language=en-US&page='+pages+'&sort_by=popularity.desc&with_genres='+id);
+    Newsection(data, genre);
+    
+    let button=document.createElement('button');
+    button.classList.add('button')
+    button.innerText ='load more'
+    genre.appendChild(button)
+    page()
+    max=data.total_pages
+   
+    if(pages>=max) {
+      clicknumber=1001
+    }
+  }
  
 }
 
 
 async function searchlist(name, pages) {
-  
-  const {data} = await api(`search/movie?query=${name}&include_adult=false&language=en-US&page=${pages}`);
-  Newsection(data, genre);
-  searchInput.value = '';
+  if(pages<1000){
 
-  let button=document.createElement('button');
-  button.classList.add('button2')
-  button.innerText ='load more'
-  genre.appendChild(button)
-  page2()
+    const {data} = await api(`search/movie?query=${name}&include_adult=false&language=en-US&page=${pages}`);
+    Newsection(data, genre);
+    searchInput.value = '';
+    
+    let button=document.createElement('button');
+    button.classList.add('button2')
+    button.innerText ='load more'
+    genre.appendChild(button)
+    page2()
+    max=data.total_pages
+   
+    if(pages>=max) {
+      clicknumber2=1001
+    }
+    
+  }
 }
 
 
@@ -164,12 +179,13 @@ function Newsection(data, content){
       if(element.poster_path){
         let card=document.createElement('div')
         card.classList.add('card')
-        card.innerHTML=`  <img src="${img_path}${element.poster_path}" alt="Movie 1">
+        card.innerHTML=`  <img data-img="${img_path}${element.poster_path}" alt="Movie 1">
                           <h3>${element.title}</h3>`;
-        cont.appendChild(card);
+        const movieImg=card.querySelector('img')
+        observer.observe(movieImg)   
+        content.querySelector('.grid').appendChild(card);
 
         card.addEventListener('click', () => {
-          //msg(']Hola');
           location.hash=`#movie/${element.id}`;
       });
     }
@@ -206,3 +222,19 @@ async function description(id,string){
   
 }
 
+// Function to load more content (for demonstration purposes)
+// function loadMoreContent() {
+//   const content = document.createElement('div');
+//   content.innerHTML = '<p>More content loaded...</p>';
+//   //document.querySelector('#genre .grid')?.appendChild(content);
+// }
+
+// Function to check if the user has scrolled to the bottom
+function checkScroll() {
+  if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight-15) {
+      document.querySelector('.button')?.click();
+      document.querySelector('.button2')?.click();
+  }
+}
+
+window.addEventListener('scroll', checkScroll);

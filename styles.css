@@ -346,3 +346,6 @@ form button:hover {
     color: #C8ACD6;
     cursor: pointer;
 }
+.button,.button2{
+    display: none;
+}
