@@ -138,7 +138,7 @@ function  genresId (){
     
     h2func('Categories')
     let id =location.hash.split('=').pop().split('/')[0]
-    genrelist(id);
+    genrelist(id, 1);
 }
 
 function  search () {
@@ -166,7 +166,7 @@ function  search () {
     h2func('search')
     let name =location.hash.split('/').pop();
     genre.querySelector('h2').textContent= name.replaceAll('%20',' ')
-    searchlist(name);
+    searchlist(name,1);
 }
 
 function Home (){
@@ -234,9 +234,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
 })
 
 function h2func(h2name){
-
+    const buttons = document.querySelectorAll('.button');
+    buttons.forEach(button => {
+        button.remove();
+    });
+    const buttons2 = document.querySelectorAll('.button2');
+    buttons2.forEach(button => {
+        button.remove();
+    });
     document.querySelector('.header-h2')?.remove();
-    document.querySelector('.genre-section .grid')?.remove();
+    const grids=document.querySelectorAll('.genre-section .grid')
+    
+    grids.forEach(button => {
+        button.remove();
+    });
+
     if(h2name>0){
         let content = document.createElement('h2')
         content.classList.add('header-h2')
@@ -261,7 +273,7 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
     console.log(sName)
     location.hash=`#search/${sName}`
 });
-
+//pagination
 let clickCount = 1;
 buttonSearch =document.querySelectorAll('.trendingPreview-btn')
 for (let i=0; i<2;i++){
@@ -276,6 +288,44 @@ for (let i=0; i<2;i++){
     }
 });
 };
+
+//pagiantion
+//let pages=1;
+let clicknumber=1;
+function page(){
+
+  
+      buttonmore =document.querySelector('.button');
+    
+      buttonmore.addEventListener('click', (event) => {
+        
+        clicknumber++; // Increment the click count
+        console.log(`Button clicked ${clicknumber} times`); // Log the 
+        let id =location.hash.split('=').pop().split('/')[0];
+        genrelist(id, clicknumber) ;
+        document.querySelector('.button')?.remove();
+
+      });
+   
+  }
+  
+  let clicknumber2=1;
+  function page2(){
+  
+    
+        buttonmore =document.querySelector('.button2');
+      
+        buttonmore.addEventListener('click', (event) => {
+          
+          clicknumber2++; // Increment the click count
+          console.log(`Button clicked ${clicknumber2} times`); // Log the 
+          let name =location.hash.split('/').pop();
+          searchlist(name, clicknumber2) ;
+          document.querySelector('.button2')?.remove();
+  
+        });
+     
+    }
 
 Genre();
 trendingSeries (1);

@@ -127,17 +127,31 @@ async function Genre() {
 }
 
 
-async function genrelist(id) {
-  const {data} = await api('discover/movie?include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres='+id);
+async function genrelist(id, pages) {
+  
+  const {data} = await api('discover/movie?include_video=false&language=en-US&page='+pages+'&sort_by=popularity.desc&with_genres='+id);
   Newsection(data, genre);
-
+  
+  let button=document.createElement('button');
+  button.classList.add('button')
+  button.innerText ='load more'
+  genre.appendChild(button)
+  page()
+ 
 }
 
 
-async function searchlist(name) {
-  const {data} = await api(`search/movie?query=${name}&include_adult=false&language=en-US&page=1`);
+async function searchlist(name, pages) {
+  
+  const {data} = await api(`search/movie?query=${name}&include_adult=false&language=en-US&page=${pages}`);
   Newsection(data, genre);
   searchInput.value = '';
+
+  let button=document.createElement('button');
+  button.classList.add('button2')
+  button.innerText ='load more'
+  genre.appendChild(button)
+  page2()
 }
 
 
@@ -191,6 +205,4 @@ async function description(id,string){
 
   
 }
-
-
 
