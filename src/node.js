@@ -33,6 +33,10 @@ const categoryItems = document.querySelectorAll('.category-item');
 const genre = document.querySelector('#genre');
 const genreTitle = document.querySelector('.genre-title');
 
+//favorite
+const favorite = document.querySelector('#favorite');
+const favoriteTitle = document.querySelector('.favorite-title');
+
 // Movies Section
 const moviesSection = document.querySelector('#movies.section');
 const moviesGrid = moviesSection.querySelector('.grid');

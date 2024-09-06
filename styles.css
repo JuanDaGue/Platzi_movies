@@ -44,7 +44,7 @@ body {
     border: 1px solid #433D8B;
     border-radius: 5px;
     background-color: #ffffff;
-    color: #C8ACD6;
+    color: #009688;
 }
 
 .header_search button {
@@ -62,19 +62,23 @@ body {
 
 .header-arrow {
     display: inline-block;
-    padding: 10px 20px; /* Increased padding */
-    font-size: 24px; /* Increased font size */
+    padding: 6px 15px;
+    font-size: 25px;
     color: #fff;
     background-color: #071a2f;
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s, transform 0.3s;
+    margin-right: 80px;
+    margin-left: 80px;
+
 }
 
 .header-arrow:hover {
     background-color: #333;
     transform: scale(1.1);
 }
+
 
 .header-h2 {
     font-size: 36px;
@@ -150,7 +154,7 @@ form {
     max-width: 600px;
     margin: 2em auto;
     padding: 1em;
-    background-color: #eef2f3; /* light, cool background */
+    /* background-color: #eef2f3; */
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -266,6 +270,7 @@ form button:hover {
 
 
 .movie-container {
+    position: relative;
     display: inline-block;
     overflow: hidden;
     border-radius: 10px;
@@ -349,3 +354,74 @@ form button:hover {
 .button,.button2{
     display: none;
 }
+
+.btnlike {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background-color: #2E236C;
+    padding: 0;
+    margin: 0;
+    border-radius: 50%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btnlike::before {
+    content: '🤍';
+    font-size: medium;
+    transition: transform 0.3s ease-in-out;
+}
+
+.btnlike:hover {
+    transform: scale(1.1);
+}
+
+.btnlike--liked {
+    background-color:#01131b;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btnlike--liked::before {
+    content: '💜';
+    transform: scale(1.2);
+}
+
+.header_search button::before{
+    content: '🔎';
+}
+
+
+
+.favorite-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    margin: 5px;
+    padding: 5%;
+}
+.favorite-containerSerie {
+    overflow-x: auto;
+    white-space: nowrap;
+    margin: 5px;
+    padding: 5%;
+}
+
+.favorite-movieList {
+    display: inline-flex;
+    
+}
+
+.movie-img {
+    display: block;
+    margin-right: 1rem;
+    margin: 5px;
+    width: 200px; /* Ajusta el ancho según tus necesidades */
+    height: auto; /* Mantiene la proporción de la imagen */
+}
+
+.trendingPreview-btn2{display: none;}
+.trendingPreview-btn{display: none;}

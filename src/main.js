@@ -45,10 +45,6 @@ async function trending (cont) {
         
         const container= document.createElement('div');
         container.classList.add('movie-container')
-        container.addEventListener('click', () => {
-          //msg('Card clicked!');
-          location.hash=`#movie/${element.id}`
-    });
         container.innerHTML=`                <img
                   data-img=${img_path}${element.poster_path}
                   class="movie-img"
@@ -58,6 +54,21 @@ async function trending (cont) {
         const movieImg=container.querySelector('img')
         observer.observe(movieImg)        
         document.querySelector('.trendingPreview-movieList ').appendChild(container)
+        const btnlike=document.createElement('button');
+        btnlike.classList.add('btnlike')
+        container.appendChild(btnlike)
+
+        if(localStorage.getItem(element.id)){
+          btnlike.classList.add('btnlike--liked')
+        }
+        btnlike.addEventListener('click', () => {
+          btnlike.classList.toggle('btnlike--liked')
+          console.log(element)
+          likesMovies(element)
+        });
+        container.querySelector('img').addEventListener('click', () => {
+             location.hash=`#movie/${element.id}`
+        });
            
     });
 }
@@ -70,19 +81,33 @@ async function trendingSeries (cont) {
         
         const container= document.createElement('div');
         container.classList.add('movie-container')
-        container.addEventListener('click', () => {
-          //msg('Card clicked!');
-          location.hash=`#movieSerie/${element.id}`
-    });
+        
         document.querySelector('.trendingPreview-containerSerie .trendingPreview-movieList').appendChild(container)    
         container.innerHTML=`                <img
                   data-img=${img_path}${element.poster_path}
                   class="movie-img"
                   alt=${element.title}
                 />` ;
-                const serieImg=container.querySelector('img')
-                observer.observe(serieImg)           
+        const serieImg=container.querySelector('img')
+        observer.observe(serieImg)           
+        const btnlike=document.createElement('button');
+        btnlike.classList.add('btnlike')
+        container.appendChild(btnlike)
+
+        
+        if(localStorage.getItem(element.id)){
+          btnlike.classList.add('btnlike--liked')
+        }
+        btnlike.addEventListener('click', () => {
+          btnlike.classList.toggle('btnlike--liked')
+          //console.log(element)
+          likesMovies(element)
+        });
+        container.querySelector('img').addEventListener('click', () => {
+             location.hash=`#movieSerie/${element.id}`
+        });
     });
+
 }
 
 async function ratedMovies() {
@@ -222,12 +247,51 @@ async function description(id,string){
   
 }
 
-// Function to load more content (for demonstration purposes)
-// function loadMoreContent() {
-//   const content = document.createElement('div');
-//   content.innerHTML = '<p>More content loaded...</p>';
-//   //document.querySelector('#genre .grid')?.appendChild(content);
-// }
+function likesMovies(element){
+  if (localStorage.getItem(element.id) !== null) {
+    localStorage.removeItem(element.id);
+  } else {
+    localStorage.setItem(element.id,JSON.stringify(element));
+  }
+  //return   localStorage.setItem(element.id,JSON.stringify(element));
+}
+
+function favsection () {
+  for (let i = 0; i < localStorage.length; i++) {
+    let key = localStorage.key(i);
+    let element = JSON.parse(localStorage.getItem(key));
+    //console.log(JSON.parse(value));
+
+
+    const container= document.createElement('div');
+    container.classList.add('movie-container')
+    container.innerHTML=` <img
+              data-img=${img_path}${element.poster_path}
+              class="movie-img"
+              alt=${element.title}
+            />`
+    //console.log(container.querySelector('img'))
+    const movieImg=container.querySelector('img')
+    observer.observe(movieImg)        
+    document.querySelector('.favorite-movieList').appendChild(container)
+    const btnlike=document.createElement('button');
+    btnlike.classList.add('btnlike')
+    container.appendChild(btnlike)
+
+    if(localStorage.getItem(element.id)){
+      btnlike.classList.add('btnlike--liked')
+    }
+    btnlike.addEventListener('click', () => {
+      btnlike.classList.toggle('btnlike--liked')
+      console.log(element)
+      likesMovies(element)
+    });
+    container.querySelector('img').addEventListener('click', () => {
+         location.hash=`#movieSerie/${element.id}`
+    });
+
+  }
+}
 
 // Function to check if the user has scrolled to the bottom
 function checkScroll() {
@@ -238,3 +302,24 @@ function checkScroll() {
 }
 
 window.addEventListener('scroll', checkScroll);
+
+
+function checkHorizontalScroll() {
+  const container = document.querySelector('#trendingPreview'); // Ensure you have the correct selector
+  if (container.scrollWidth - container.scrollLeft <= container.clientWidth + 15) {
+      document.querySelector('.trendingPreview-btn')?.click();
+  }
+}
+
+
+  trendingPreviewMoviesContainer.addEventListener('scroll', checkHorizontalScroll);
+
+  function checkHorizontalScroll2() {
+    const container2 = document.querySelector('.trendingPreview-containerSerie'); // Ensure you have the correct selector
+    if (container2.scrollWidth - container2.scrollLeft <= container2.clientWidth + 15) {
+        document.querySelector('.trendingPreview-btn2')?.click();
+    }
+  }
+  
+  
+  document.querySelector('.trendingPreview-containerSerie').addEventListener('scroll', checkHorizontalScroll2);

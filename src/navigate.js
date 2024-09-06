@@ -23,8 +23,11 @@ function navigator(){
     else if(location.hash.startsWith('#movie/')){
         Details ()
     }
-    else if(location.hash.startsWith('#movieS')){
+    else if(location.hash.startsWith('#movieSerie/')){
         Details ()
+    }
+    else if(location.hash.startsWith('#favorite')){
+        favorites ()
     }
     else{
         Home ()
@@ -47,12 +50,13 @@ function trend (){
             moviesSection.classList.add('inactive');
             commentsSection.classList.add('inactive'); 
             categoriesSection.classList.add('inactive');
+            favorite.classList.add('inactive')
             //forms,  arrows or Buttons
             headerArrow.classList.remove('inactive');
             searchForm.classList.add('inactive');
             headerNav.classList.add('inactive');
             headerHome.classList.remove('inactive');
-
+            favorite.classList.add('inactive')
             h2func('Trendign')
 
 }
@@ -78,10 +82,37 @@ function movies_ (){
         headerNav.classList.add('inactive');
         genre.classList.add('inactive');
         headerHome.classList.remove('inactive');
-
+        favorite.classList.add('inactive')
 
         h2func('Movies')
     
+}
+
+function favorites () {
+    console.log('movies!!');
+        //Header
+        header.style.backgroud ='';
+        favorite.classList.remove('inactive')
+        // Titles
+        categoriesTitle.classList.add('inactive');
+        headerTitle.classList.add('inactive');
+        //Sections
+        trendingPreviewSeriesContainer.classList.add('inactive');
+        trendingPreviewMoviesContainer.classList.add('inactive');
+        seriesSection.classList.remove('inactive');
+        moviesSection.classList.remove('inactive');
+        commentsSection.classList.add('inactive'); 
+        categoriesSection.classList.add('inactive');
+        //forms,  arrows or Buttons
+        headerArrow.classList.remove('inactive');
+        searchForm.classList.add('inactive');
+        headerNav.classList.add('inactive');
+        genre.classList.add('inactive');
+        headerHome.classList.remove('inactive');
+
+
+        h2func('Movies')
+        favsection ()
 }
 function  categories (){
     console.log('Categories!!');
@@ -96,8 +127,8 @@ function  categories (){
     //Sections
     trendingPreviewSeriesContainer.classList.add('inactive');
     trendingPreviewMoviesContainer.classList.add('inactive');
-    seriesSection.classList.add('inactive');
-    moviesSection.classList.add('inactive');
+    seriesSection.classList.re('inactive');
+    moviesSection.classList.re('inactive');
     commentsSection.classList.add('inactive'); 
     categoriesSection.classList.remove('inactive');
     //forms,  arrows or Buttons
@@ -106,7 +137,7 @@ function  categories (){
     headerNav.classList.add('inactive');
     genre.classList.add('inactive');
     headerHome.classList.remove('inactive');
-    
+    favorite.classList.add('inactive')
     h2func('Categories')
     
     //Genre()
@@ -135,7 +166,7 @@ function  genresId (){
     searchForm.classList.add('inactive');
     headerNav.classList.add('inactive');
     headerHome.classList.remove('inactive');
-    
+    favorite.classList.add('inactive')
     h2func('Categories')
     let id =location.hash.split('=').pop().split('/')[0]
     genrelist(id, 1);
@@ -162,6 +193,7 @@ function  search () {
     searchForm.classList.remove('inactive');
     headerNav.classList.add('inactive');
     headerHome.classList.remove('inactive');
+    favorite.classList.add('inactive')
     
     h2func('search')
     let name =location.hash.split('/').pop();
@@ -185,6 +217,7 @@ function Home (){
     moviesSection.classList.remove('inactive');
     categoriesSection.classList.remove('inactive');
     headerNav.classList.remove('inactive');
+    favorite.classList.add('inactive')
     h2func('')
 
 }
@@ -211,7 +244,7 @@ function Details (){
     searchForm.classList.remove('inactive');
     headerNav.classList.add('inactive');
     headerHome.classList.remove('inactive');
-    
+    favorite.classList.add('inactive')
     h2func('search')
     let name =location.hash.split('/').pop()
     genre.querySelector('h2').textContent= name.replaceAll('%20',' ')
@@ -275,20 +308,26 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
 });
 //pagination
 let clickCount = 1;
-buttonSearch =document.querySelectorAll('.trendingPreview-btn')
-for (let i=0; i<2;i++){
-    buttonSearch[i].addEventListener('click', (event) => {
+buttonSearch =document.querySelector('.trendingPreview-btn')
+
+    buttonSearch.addEventListener('click', (event) => {
     
     clickCount++; // Increment the click count
     console.log(`Button clicked ${clickCount} times`); // Log the click count
-    if(i==0){
-    trending(clickCount);}
-    else{
-        trendingSeries(clickCount)
-    }
+    trending(clickCount);
 });
-};
 
+//pagination
+let clickCount2 = 1;
+buttonSearch2 =document.querySelector('.trendingPreview-btn2')
+
+    buttonSearch2.addEventListener('click', (event) => {
+    
+    clickCount2++; // Increment the click count
+    console.log(`Button clicked ${clickCount} times`); // Log the click count
+
+        trendingSeries(clickCount2)
+});
 //pagiantion
 //let pages=1;
 let clicknumber=1;
@@ -312,7 +351,7 @@ function page(){
   let clicknumber2=1;
   function page2(){
   
-        
+
         buttonmore =document.querySelector('.button2');
       
         buttonmore.addEventListener('click', (event) => {
