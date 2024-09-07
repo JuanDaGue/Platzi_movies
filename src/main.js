@@ -293,7 +293,9 @@ function favsection () {
   }
 }
 
-// Function to check if the user has scrolled to the bottom
+// Paggination Scroll
+
+
 function checkScroll() {
   if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight-15) {
       document.querySelector('.button')?.click();
@@ -323,3 +325,42 @@ function checkHorizontalScroll() {
   
   
   document.querySelector('.trendingPreview-containerSerie').addEventListener('scroll', checkHorizontalScroll2);
+
+
+  // const scrollContainer = document.getElementById('trendingPreview');
+ function automaticScroll (scrollContainer){
+    let scrollAmount = 0;
+    const scrollStep = 700; // Adjust as needed
+    const scrollInterval = 4000; // 2 seconds
+
+    function scrollRight() {
+      scrollContainer.scrollBy({ left: scrollStep, behavior: 'smooth' });
+      scrollAmount += scrollStep;
+      if (scrollAmount >= scrollStep * 3) {
+        clearInterval(rightInterval);
+        setTimeout(() => {
+          leftInterval = setInterval(scrollLeft, scrollInterval);
+        }, scrollInterval);
+      }
+    }
+
+    function scrollLeft() {
+      scrollContainer.scrollBy({ left: -scrollStep, behavior: 'smooth' });
+      scrollAmount -= scrollStep;
+      if (scrollAmount <= 0) {
+        clearInterval(leftInterval);
+        setTimeout(() => {
+          rightInterval = setInterval(scrollRight, scrollInterval);
+        }, scrollInterval);
+      }
+    }
+
+    let rightInterval = setInterval(scrollRight, scrollInterval);
+    let leftInterval;
+ }
+
+ automaticScroll (document.getElementById('trendingPreview'))
+ setTimeout(()=>{
+  automaticScroll (document.querySelector('.trendingPreview-containerSerie'))
+ },2000)
+ 

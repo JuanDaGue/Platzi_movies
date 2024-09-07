@@ -10,7 +10,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
+    /* padding: 1rem; */
+    padding-left: 5rem;
     background-color: #355c7d; /* cool autumn blue */
     color: rgb(52, 15, 82);
     
@@ -18,12 +19,12 @@ body {
 
 .header nav ul {
     list-style: none;
-    padding: 0;
+    padding: 10;
 }
 
 .header nav ul li {
     display: inline;
-    margin: 0 1em;
+    margin: 10em 1em;
 }
 
 .header nav ul li a {

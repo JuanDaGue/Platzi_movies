@@ -1,7 +1,7 @@
 window.addEventListener('DOMContentLoaded', navigator, false)
 window.addEventListener('hashchange', navigator, false)
 function navigator(){
-    //console.log({location})
+    ////console.log({location})
     if(location.hash.startsWith('#trend')){
         trend ();
     }
@@ -36,7 +36,7 @@ function navigator(){
 }
 
 function trend (){
-    console.log('Trends!!');
+    //console.log('Trends!!');
             //Header
             header.style.backgroud ='';
        
@@ -62,7 +62,7 @@ function trend (){
 }
 
 function movies_ (){
-    console.log('movies!!');
+    //console.log('movies!!');
         //Header
         header.style.backgroud ='';
        
@@ -89,7 +89,7 @@ function movies_ (){
 }
 
 function favorites () {
-    console.log('movies!!');
+    //console.log('movies!!');
         //Header
         header.style.backgroud ='';
         favorite.classList.remove('inactive')
@@ -115,7 +115,7 @@ function favorites () {
         favsection ()
 }
 function  categories (){
-    console.log('Categories!!');
+    //console.log('Categories!!');
 
     
     //Header
@@ -146,7 +146,7 @@ function  categories (){
 }
 
 function  genresId (){
-    console.log('Categories!!');
+    //console.log('Categories!!');
     //Header
     header.style.backgroud ='';
        
@@ -173,7 +173,7 @@ function  genresId (){
 }
 
 function  search () {
-    console.log('SEARCH!!');
+    //console.log('SEARCH!!');
     //Header
     header.style.backgroud ='';
        
@@ -202,7 +202,7 @@ function  search () {
 }
 
 function Home (){
-    console.log('Home!!');
+    //console.log('Home!!');
     headerHome.classList.add('inactive');
     header.style.backgroud ='';
     genre.classList.add('inactive');
@@ -224,7 +224,7 @@ function Home (){
 function Details (){
 
 
-    console.log('Details!!');
+    //console.log('Details!!');
     //Header
     header.style.backgroud ='';
        
@@ -250,13 +250,13 @@ function Details (){
     genre.querySelector('h2').textContent= name.replaceAll('%20',' ')
     let id=location.hash.split('/').pop();
     let string =location.hash.split('#').pop().split('/')[0];
-    console.log(string)
+    //console.log(string)
     if(string.search(/Serie/img)>-1){
         string = 'tv'
     }else{
         string='movie'
     }
-    console.log(string)
+    //console.log(string)
     description(id,string)
 }
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -303,9 +303,11 @@ searchButton.addEventListener('click', ()=>{
 document.getElementById('searchForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the default form submission
     let sName = document.querySelector('input[type="text"]').value;
-    console.log(sName)
+    //console.log(sName)
     location.hash=`#search/${sName}`
 });
+
+
 //pagination
 let clickCount = 1;
 buttonSearch =document.querySelector('.trendingPreview-btn')
@@ -313,7 +315,7 @@ buttonSearch =document.querySelector('.trendingPreview-btn')
     buttonSearch.addEventListener('click', (event) => {
     
     clickCount++; // Increment the click count
-    console.log(`Button clicked ${clickCount} times`); // Log the click count
+    //console.log(`Button clicked ${clickCount} times`); // Log the click count
     trending(clickCount);
 });
 
@@ -324,7 +326,7 @@ buttonSearch2 =document.querySelector('.trendingPreview-btn2')
     buttonSearch2.addEventListener('click', (event) => {
     
     clickCount2++; // Increment the click count
-    console.log(`Button clicked ${clickCount} times`); // Log the click count
+    //console.log(`Button clicked ${clickCount} times`); // Log the click count
 
         trendingSeries(clickCount2)
 });
@@ -339,7 +341,7 @@ function page(){
       buttonmore.addEventListener('click', (event) => {
         
         clicknumber++; // Increment the click count
-        console.log(`Button clicked ${clicknumber} times`); // Log the 
+        //console.log(`Button clicked ${clicknumber} times`); // Log the 
         let id =location.hash.split('=').pop().split('/')[0];
         genrelist(id, clicknumber) ;
         document.querySelector('.button')?.remove();
@@ -357,7 +359,7 @@ function page(){
         buttonmore.addEventListener('click', (event) => {
           
           clicknumber2++; // Increment the click count
-          console.log(`Button clicked ${clicknumber2} times`); // Log the 
+          //console.log(`Button clicked ${clicknumber2} times`); // Log the 
           let name =location.hash.split('/').pop();
           searchlist(name, clicknumber2) ;
           document.querySelector('.button2')?.remove();
