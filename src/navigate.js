@@ -125,8 +125,8 @@ function  categories (){
     //Sections
     trendingPreviewSeriesContainer.classList.add('inactive');
     trendingPreviewMoviesContainer.classList.add('inactive');
-    seriesSection.classList.re('inactive');
-    moviesSection.classList.re('inactive');
+    seriesSection.classList.remove('inactive');
+    moviesSection.classList.remove('inactive');
     commentsSection.classList.add('inactive'); 
     categoriesSection.classList.remove('inactive');
     //forms,  arrows or Buttons
