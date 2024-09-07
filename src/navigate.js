@@ -116,8 +116,6 @@ function favorites () {
 }
 function  categories (){
     //console.log('Categories!!');
-
-    
     //Header
     header.style.backgroud ='';
        
@@ -223,8 +221,6 @@ function Home (){
 }
 function Details (){
 
-
-    //console.log('Details!!');
     //Header
     header.style.backgroud ='';
        
@@ -250,13 +246,11 @@ function Details (){
     genre.querySelector('h2').textContent= name.replaceAll('%20',' ')
     let id=location.hash.split('/').pop();
     let string =location.hash.split('#').pop().split('/')[0];
-    //console.log(string)
     if(string.search(/Serie/img)>-1){
         string = 'tv'
     }else{
         string='movie'
     }
-    //console.log(string)
     description(id,string)
 }
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -289,9 +283,7 @@ function h2func(h2name){
         content.appendChild(newText);
         header.insertBefore(content, header.firstChild)
     }
-
 }
-
 
 searchButton.addEventListener('click', ()=>{
     event.preventDefault();
@@ -303,19 +295,14 @@ searchButton.addEventListener('click', ()=>{
 document.getElementById('searchForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the default form submission
     let sName = document.querySelector('input[type="text"]').value;
-    //console.log(sName)
     location.hash=`#search/${sName}`
 });
-
 
 //pagination
 let clickCount = 1;
 buttonSearch =document.querySelector('.trendingPreview-btn')
-
     buttonSearch.addEventListener('click', (event) => {
-    
-    clickCount++; // Increment the click count
-    //console.log(`Button clicked ${clickCount} times`); // Log the click count
+    clickCount++; 
     trending(clickCount);
 });
 
@@ -325,27 +312,20 @@ buttonSearch2 =document.querySelector('.trendingPreview-btn2')
 
     buttonSearch2.addEventListener('click', (event) => {
     
-    clickCount2++; // Increment the click count
-    //console.log(`Button clicked ${clickCount} times`); // Log the click count
-
+    clickCount2++; 
         trendingSeries(clickCount2)
 });
 //pagiantion
-//let pages=1;
+
 let clicknumber=1;
 function page(){
 
-  
-      buttonmore =document.querySelector('.button');
-    
-      buttonmore.addEventListener('click', (event) => {
-        
-        clicknumber++; // Increment the click count
-        //console.log(`Button clicked ${clicknumber} times`); // Log the 
+    buttonmore =document.querySelector('.button');
+    buttonmore.addEventListener('click', (event) => {
+        clicknumber++; 
         let id =location.hash.split('=').pop().split('/')[0];
         genrelist(id, clicknumber) ;
         document.querySelector('.button')?.remove();
-
       });
    
   }
@@ -353,13 +333,9 @@ function page(){
   let clicknumber2=1;
   function page2(){
   
-
         buttonmore =document.querySelector('.button2');
-      
         buttonmore.addEventListener('click', (event) => {
-          
-          clicknumber2++; // Increment the click count
-          //console.log(`Button clicked ${clicknumber2} times`); // Log the 
+          clicknumber2++; 
           let name =location.hash.split('/').pop();
           searchlist(name, clicknumber2) ;
           document.querySelector('.button2')?.remove();
@@ -372,7 +348,6 @@ Genre();
 trendingSeries (1);
 ratedMovies();
 trending(1);
-//ratedMovies();
 ratedseries()
 
 

@@ -5,7 +5,7 @@ const api=axios.create({
     baseURL:'https://api.themoviedb.org/3',
     headers: {
     "accept": 'application/json',
-    "Authorization": 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyNWE2YTcyMmRlYjE1Nzc2MTRkZWVjNmZhYzBmZWU2MSIsIm5iZiI6MTcyMzkyNDc1NC4zNzIxNTcsInN1YiI6IjY2OWVkMGY3M2QzMzQzMDVhOWJmMTk0MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.mVWYf0sEZZ7IsS1MiI4VX4LaNKDkSQTXqguwC0H403k'
+    "Authorization": 'Bearer '+token,
     }
 })
 const observer = new IntersectionObserver((entries)=>{
@@ -39,42 +39,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 async function trending (cont) {
-    const {data} = await api(`/trending/movie/day?language=en-US&page=${cont}`)
-    let movies= data.results
-    movies.forEach(element => {
+    if(cont<10000){
+
+      const {data} = await api(`/trending/movie/day?language=en-US&page=${cont}`)
+      let movies= data.results
+      movies.forEach(element => {
         
         const container= document.createElement('div');
         container.classList.add('movie-container')
         container.innerHTML=`                <img
-                  data-img=${img_path}${element.poster_path}
+        data-img=${img_path}${element.poster_path}
                   class="movie-img"
                   alt=${element.title}
-                />`
-        //console.log(container.querySelector('img'))
-        const movieImg=container.querySelector('img')
-        observer.observe(movieImg)        
-        document.querySelector('.trendingPreview-movieList ').appendChild(container)
-        const btnlike=document.createElement('button');
-        btnlike.classList.add('btnlike')
-        container.appendChild(btnlike)
-
-        if(localStorage.getItem(element.id)){
-          btnlike.classList.add('btnlike--liked')
-        }
-        btnlike.addEventListener('click', () => {
+                  />`
+                  ////console.log(data)
+                  const movieImg=container.querySelector('img')
+                  observer.observe(movieImg)        
+                  document.querySelector('.trendingPreview-movieList ').appendChild(container)
+                  const btnlike=document.createElement('button');
+                  btnlike.classList.add('btnlike')
+                  container.appendChild(btnlike)
+                  
+                  if(localStorage.getItem(element.id)){
+                    btnlike.classList.add('btnlike--liked')
+                  }
+                  btnlike.addEventListener('click', () => {
           btnlike.classList.toggle('btnlike--liked')
-          console.log(element)
+          //console.log(element)
           likesMovies(element)
         });
         container.querySelector('img').addEventListener('click', () => {
-             location.hash=`#movie/${element.id}`
+          location.hash=`#movie/${element.id}`
         });
            
-    });
-}
+      });
+      let max=data.total_pages
+   
+      if(cont>=max) {
+        clickCount=10001
+      }
+    }
+    }
 
 async function trendingSeries (cont) {
-  
+  if(cont<10000){
    const {data} = await api(`/discover/tv?include_adult=false&language=en-US&page=${cont}&sort_by=popularity.desc`)
     let movies= data.results
     movies.forEach(element => {
@@ -100,14 +108,18 @@ async function trendingSeries (cont) {
         }
         btnlike.addEventListener('click', () => {
           btnlike.classList.toggle('btnlike--liked')
-          //console.log(element)
+          ////console.log(element)
           likesMovies(element)
         });
         container.querySelector('img').addEventListener('click', () => {
              location.hash=`#movieSerie/${element.id}`
         });
     });
-
+    let max=data.total_pages
+    if(cont>=max) {
+      clickCount2=10001
+    }
+  }
 }
 
 async function ratedMovies() {
@@ -260,9 +272,6 @@ function favsection () {
   for (let i = 0; i < localStorage.length; i++) {
     let key = localStorage.key(i);
     let element = JSON.parse(localStorage.getItem(key));
-    //console.log(JSON.parse(value));
-
-
     const container= document.createElement('div');
     container.classList.add('movie-container')
     container.innerHTML=` <img
@@ -270,7 +279,6 @@ function favsection () {
               class="movie-img"
               alt=${element.title}
             />`
-    //console.log(container.querySelector('img'))
     const movieImg=container.querySelector('img')
     observer.observe(movieImg)        
     document.querySelector('.favorite-movieList').appendChild(container)
@@ -283,7 +291,7 @@ function favsection () {
     }
     btnlike.addEventListener('click', () => {
       btnlike.classList.toggle('btnlike--liked')
-      console.log(element)
+      //console.log(element)
       likesMovies(element)
     });
     container.querySelector('img').addEventListener('click', () => {
@@ -327,11 +335,11 @@ function checkHorizontalScroll() {
   document.querySelector('.trendingPreview-containerSerie').addEventListener('scroll', checkHorizontalScroll2);
 
 
-  // const scrollContainer = document.getElementById('trendingPreview');
+  // Scroll automatic
  function automaticScroll (scrollContainer){
     let scrollAmount = 0;
-    const scrollStep = 700; // Adjust as needed
-    const scrollInterval = 4000; // 2 seconds
+    const scrollStep = 700; 
+    const scrollInterval = 4000; //  seconds
 
     function scrollRight() {
       scrollContainer.scrollBy({ left: scrollStep, behavior: 'smooth' });

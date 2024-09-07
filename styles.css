@@ -10,7 +10,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* padding: 1rem; */
+    padding: 1rem;
     padding-left: 5rem;
     background-color: #355c7d; /* cool autumn blue */
     color: rgb(52, 15, 82);
