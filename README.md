@@ -1,5 +1,5 @@
 # Movie Database Project
-
+https://juandague.github.io/Platzi_movies/
 ## Description
 This project is a web application that allows users to search for movies and view details about them. It uses HTML, CSS, and JavaScript along with the Movie Database API to fetch and display movie data.
 
