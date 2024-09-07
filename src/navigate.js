@@ -111,7 +111,7 @@ function favorites () {
         headerHome.classList.remove('inactive');
 
 
-        h2func('Movies')
+        h2func('favorite')
         favsection ()
 }
 function  categories (){

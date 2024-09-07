@@ -269,6 +269,7 @@ function likesMovies(element){
 }
 
 function favsection () {
+  document.querySelector('.favorite-movieList').innerHTML='';
   for (let i = 0; i < localStorage.length; i++) {
     let key = localStorage.key(i);
     let element = JSON.parse(localStorage.getItem(key));
