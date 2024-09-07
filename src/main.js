@@ -273,6 +273,7 @@ function favsection () {
   for (let i = 0; i < localStorage.length; i++) {
     let key = localStorage.key(i);
     let element = JSON.parse(localStorage.getItem(key));
+    if (!element.poster_path) continue;
     const container= document.createElement('div');
     container.classList.add('movie-container')
     container.innerHTML=` <img
